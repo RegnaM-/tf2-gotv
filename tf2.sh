@@ -3,7 +3,7 @@
     export SERVER_PASSWORD="${SERVER_PASSWORD:-changeme}"
     export RCON_PASSWORD="${RCON_PASSWORD:-changeme}"
     export GOTV_HOSTNAME="${GOTV_HOSTNAME:-GOTV}"
-    export TF2_DIR="${TF2_DIR:-/$HOME/hlserver}"
+    export TF2_DIR="${TF2_DIR:-$HOME/hlserver}"
     export IP="${IP:-0.0.0.0}"
     export PORT="${PORT:-27015}"
     export GOTV_PORT="${GOTV_PORT:-27020}"
@@ -17,7 +17,7 @@
 cd $TF2_DIR
 
 ### Create dynamic server config
-cat << SERVERCFG > $TF2_DIR/tf2/cfg/server.cfg
+cat << SERVERCFG > $TF2_DIR/tf2/tf2/cfg/server.cfg
 hostname "$SERVER_HOSTNAME"
 rcon_password "$RCON_PASSWORD"
 sv_password "$SERVER_PASSWORD"
@@ -41,7 +41,7 @@ writeip
 tv_enable "1"
 SERVERCFG
 
-./srcds_run \
+./tf2/srcds_run \
     -console \
     -usercon \
     -game tf \
