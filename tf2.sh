@@ -3,24 +3,21 @@
     export SERVER_PASSWORD="${SERVER_PASSWORD:-changeme}"
     export RCON_PASSWORD="${RCON_PASSWORD:-changeme}"
     export GOTV_HOSTNAME="${GOTV_HOSTNAME:-GOTV}"
-    export STEAM_ACCOUNT="${STEAM_ACCOUNT:-changeme}"
-    export CSGO_DIR="${CSGO_DIR:-/$HOME/hlserver}"
+    export TF2_DIR="${TF2_DIR:-/$HOME/hlserver}"
     export IP="${IP:-0.0.0.0}"
     export PORT="${PORT:-27015}"
     export GOTV_PORT="${GOTV_PORT:-27020}"
     export TICKRATE="${TICKRATE:-64}"
-    export GAME_TYPE="${GAME_TYPE:-0}"
-    export GAME_MODE="${GAME_MODE:-1}"
-    export MAP="${MAP:-de_dust2}"
-    export MAPGROUP="${MAPGROUP:-mg_active}"
+    export MAP="${MAP:-pl_badwater}"
+    export MAPCYCLE="${MAPCYCLE:-mapcycle_quickplay_payload.txt}"
     export MAXPLAYERS="${MAXPLAYERS:-12}"
 
-: ${CSGO_DIR:?"ERROR: CSGO_DIR IS NOT SET!"}
+: ${TF2_DIR:?"ERROR: TF2_DIR IS NOT SET!"}
 
-cd $CSGO_DIR
+cd $TF2_DIR
 
 ### Create dynamic server config
-cat << SERVERCFG > $CSGO_DIR/csgo/cfg/server.cfg
+cat << SERVERCFG > $TF2_DIR/tf2/cfg/server.cfg
 hostname "$SERVER_HOSTNAME"
 rcon_password "$RCON_PASSWORD"
 sv_password "$SERVER_PASSWORD"
@@ -47,19 +44,16 @@ SERVERCFG
 ./srcds_run \
     -console \
     -usercon \
-    -game csgo \
+    -game tf \
     -autoupdate \
     -autorestart \
     -steam_dir ~/hlserver \
-    -steamcmd_script ~/hlserver/csgo_ds.txt \
+    -steamcmd_script ~/hlserver/tf2_ds.txt \
     -tickrate $TICKRATE \
     -port $PORT \
     +tv_port $GOTV_PORT \
     -maxplayers_override $MAXPLAYERS \
-    +game_type $GAME_TYPE \
-    +game_mode $GAME_MODE \
-    +mapgroup $MAPGROUP \
+    +mapcycle $MAPCYCLE \
     +map $MAP \
     +ip $IP \
-    +tv_enable 1 \
-    +sv_setsteamaccount $STEAM_ACCOUNT
+    +tv_enable 1
