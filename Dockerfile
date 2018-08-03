@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 MAINTAINER Max Gonzih <gonzih at gmail dot com>
 
-ENV USER csgo
+ENV USER tf2
 ENV HOME /home/$USER
 ENV SERVER $HOME/hlserver
 
@@ -14,9 +14,9 @@ RUN apt-get -y update \
     && chown $USER:$USER $HOME \
     && mkdir $SERVER
 
-ADD ./csgo_ds.txt $SERVER/csgo_ds.txt
+ADD ./tf2_ds.txt $SERVER/tf2_ds.txt
 ADD ./update.sh $SERVER/update.sh
-ADD ./csgo.sh $SERVER/csgo.sh
+ADD ./tf2.sh $SERVER/tf2.sh
 
 RUN chown -R $USER:$USER $SERVER
 
@@ -25,4 +25,4 @@ RUN curl http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -C $SE
  && $SERVER/update.sh
 
 WORKDIR /home/$USER/hlserver
-CMD ["./csgo.sh"]
+CMD ["./tf2.sh"]
